@@ -10,7 +10,7 @@
     </div>
     <div class="input-group">
       <input v-model="password" type="password" placeholder=" "
-             :class="[!email && isSubmit || isSubmit && hasError? 'error' : '',
+             :class="[!password && isSubmit || isSubmit && hasError? 'error' : '',
     ]"/>
       <label class="floating-label">סיסמה</label>
       <a href="#" class="hint">שחכת סיסמה?</a>
@@ -47,10 +47,17 @@ export default class LoginForm extends Vue {
         if (user) {
           this.$router.push('/welcome')
         } else {
-          this.hasError = true
+          this.showError()
         }
       })
     }
+  }
+
+  showError (): void {
+    this.hasError = true
+    setTimeout(() => {
+      this.hasError = false
+    }, 3000)
   }
 }
 
