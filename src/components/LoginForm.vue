@@ -2,12 +2,16 @@
   <div class="login-form">
     <h1 class="login-title">היי, טוב לראות אותך</h1>
     <div class="input-group">
-      <input v-model="email" type="text" placeholder=" "/>
+      <input v-model="email" type="text" placeholder=" " :class="[
+        !email && isSubmit || isSubmit && hasError ? 'error' : '',
+    ]"/>
       <label class="floating-label">מייל</label>
       <div class="hint">כתובת המייל איתה נרשמת לחשבונית ירוקה</div>
     </div>
     <div class="input-group">
-      <input v-model="password" type="password" placeholder=" "/>
+      <input v-model="password" type="password" placeholder=" "
+             :class="[!email && isSubmit || isSubmit && hasError? 'error' : '',
+    ]"/>
       <label class="floating-label">סיסמה</label>
       <a href="#" class="hint">שחכת סיסמה?</a>
     </div>
@@ -30,18 +34,28 @@ import { ActionsEnum } from '@/store'
 export default class LoginForm extends Vue {
   email = ''
   password = ''
+  isSubmit = false
+  hasError = false
 
-  async login (): Promise<void> {
-    await this.$store.dispatch(ActionsEnum.LOGIN, {
-      email: this.email,
-      password: this.password
-    })
-    this.$router.push('/welcome')
+  login (): void {
+    this.isSubmit = true
+    if (this.email && this.password) {
+      this.$store.dispatch(ActionsEnum.LOGIN, {
+        email: this.email,
+        password: this.password
+      }).then((user) => {
+        if (user) {
+          this.$router.push('/welcome')
+        } else {
+          this.hasError = true
+        }
+      })
+    }
   }
 }
 
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped lang="scss">
 
 .login-title {
@@ -69,6 +83,10 @@ input {
   border-bottom: 1px solid;
   appearance: none;
   margin-bottom: 5px;
+
+  &.error {
+    border-bottom: 1px solid red;
+  }
 
   &:focus {
     outline: none;
