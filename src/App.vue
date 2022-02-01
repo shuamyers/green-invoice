@@ -1,32 +1,36 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <img src="./assets/green_logo.svg" class="green-logo" alt="green-invoice logo"/>
     <router-view/>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import url('https://cdn.d.greeninvoice.co.il/assets/web-app/2.2.331/components/webfonts/all.min.css');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'almoni-neue-dl', sans-serif;
+  color: #23445A;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.green-logo {
+  height: 34px;
+  width: 221px;
+  position: fixed;
+  top: 44px;
+  right: 85.8px;
 }
+
+.btn {
+  font-size: 1rem;
+  border-radius: 100px;
+  height: 56px;
+  width: 228px;
+  border: 1px solid #18C746;
+  margin-top: 40px;
+}
+
 </style>
